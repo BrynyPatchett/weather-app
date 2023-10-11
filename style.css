@@ -1,0 +1,41 @@
+body{
+    background-color: lightblue;
+    height: 100vh;
+    margin: 0;
+    width: 100vw;
+}
+
+.content{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.weathercontent{
+ flex:1;
+ background-color: lightgreen;
+ width: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.weathercards{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.search{
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
+.footer{
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
