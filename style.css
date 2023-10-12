@@ -1,5 +1,5 @@
 body {
-  background-color:#80B3FF;
+  background-color:#203049;
   height: 100vh;
   margin: 0;
 }
@@ -15,11 +15,24 @@ body {
 
 .weathercontent {
   flex: 1;
-  background-color: lightgreen;
+ 
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url(./large.jpg);
+  background-position: bottom;
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+
+  @media (max-width: 1024px) {
+    padding: 10px 0;
+    background-image: url(./large.jpg);
+    background-position: center;
+    background-size: 500%;
+  background-repeat: no-repeat;
+  }
 }
 
 .weathercards {
@@ -70,6 +83,11 @@ body {
   height: 400px;
   width: 300px;
   border-radius: 10px;
+  background: rgba(255, 255, 255, 0.411);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+   backdrop-filter: blur(2px); 
+   overflow: hidden;
 }
 
 #searchbar{
@@ -97,3 +115,121 @@ body {
     color:transparent;
  }
     
+ .weathercard.sun::before{
+    content: "";
+    position: absolute;
+    background-color: rgba(255, 246, 246, 0.13);
+    height: 100%;
+    width: 60px;
+    transform: skewX(-30deg);
+    left: -180px;
+  }
+
+  .weathercard.sun::before{
+    animation: shine 7s;
+    animation-iteration-count: infinite;
+  }
+
+
+  @keyframes shine {
+    0%{
+        left: -180px;
+    }
+    20%{
+        left:150%;
+    }
+    100%{
+        left:150%;
+    }
+  }
+
+  .weathercard.rain{
+    
+  }
+
+   .weathercard.rain::before{
+        content: '';
+        position: absolute;
+        background-image: url(./rain.png);
+        top: 0;
+        left: 0;
+        width: 150%;
+        height: 150%;
+        animation: rain 8s linear infinite;
+  }
+ 
+  @keyframes rain {
+    0%{
+        opacity: 0%;
+        left: -100px;
+        top: -100px;
+    }
+    
+    5%{
+        opacity: 100%;
+    }
+    40%,100%{
+        left: 0px;
+        top:0px;
+        opacity: 0%;
+    }
+  }
+
+
+  @keyframes storm {
+    0%{
+        opacity: 0%;
+        left: -100px;
+        top: -100px;
+    }
+    
+    5%{
+        opacity: 100%;
+    }
+    10%{
+        background-color: rgba(255, 255, 255, 0.575)
+    }
+    12%{
+        background-color:rgba(255, 255, 255, 0);
+    }
+    15%{
+        background-color: rgba(255, 255, 255, 0.575)
+    }
+    17%{
+        background-color:rgba(255, 255, 255, 0);
+    }
+    40%,100%{
+        left: 0px;
+        top:0px;
+        opacity: 0%;
+    }
+  }
+
+
+  .weathercard.cloud{
+
+  }
+
+
+  .weathercard.cloud::before{
+    content: '';
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 150%;
+    animation: cloud 7s  infinite;
+}
+
+@keyframes cloud {
+    0%{
+        backdrop-filter: blur(0px); 
+    }
+   50%{
+        backdrop-filter: blur(90px); 
+    }
+    100%{
+        backdrop-filter: blur(0px);  
+    }
+  }
