@@ -7,17 +7,66 @@
     <title>Document</title>
     <script src="./app.js"></script>
     <link rel="stylesheet" href="./style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="content">
       <div class="search">
-        <input id="searchbar" type="text" placeholder="Search Location"><div class="searchicondiv"><img src="./search.svg" alt="search"></div>
+        <input id="searchbar" type="text" placeholder="Search Location" />
+        <div class="searchicondiv"><img src="./search.svg" alt="search" />
+        </div>
+      </div>
+      <div class="locationwrapper">
+        
+        <div class="location" > <h1 style="margin: 0;">Auckland, New Zealand</h1></div>
       </div>
       <div class="weathercontent">
         <div class="weathercards">
-          <div class="weathercard sun"></div>
-          <div class="weathercard rain"></div>
-          <div class="weathercard cloud" ></div>
+          <div class="weathercard sun">
+            <div class="weatherinfo">
+              <img src="./sun.png" alt="cloudy" />
+              <div  class="temp">
+                <p class="temperatureHigh">16c</p>
+                <p class="temperatureLow">8c</p>
+              </div>
+              <div class="chanceWrapper">
+                <div class="chanceinfo">
+                  <div class="chance"><p>Chance of Rain</p><p>82%</p></div>
+                  <div class="chance"><p>PRECIPITATION</p><p>11.4cm</p></div>
+                  <div class="chance"><p>Humidity</p><p>94%</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="weathercard rain"><div class="weatherinfo">
+            <img src="./rainy.png" alt="cloudy" />
+            <div  class="temp">
+              <p class="temperatureHigh">16c</p>
+              <p class="temperatureLow">8c</p>
+            </div>
+            <div class="chanceWrapper">
+              <div class="chanceinfo">
+                <div class="chance"><p>Chance of Rain</p><p>82%</p></div>
+                <div class="chance"><p>PRECIPITATION</p><p>11.4cm</p></div>
+                <div class="chance"><p>Humidity</p><p>94%</p></div>
+              </div>
+            </div>
+          </div></div>
+          <div class="weathercard cloud">
+            <div class="weatherinfo">
+            <img src="./cloudy.png" alt="cloudy" />
+            <div  class="temp">
+              <p class="temperatureHigh">16c</p>
+              <p class="temperatureLow">8c</p>
+            </div>
+            <div class="chanceWrapper">
+              <div class="chanceinfo">
+                <div class="chance"><p>Chance of Rain</p><p>82%</p></div>
+                <div class="chance"><p>PRECIPITATION</p><p>11.4cm</p></div>
+                <div class="chance"><p>Humidity</p><p>94%</p></div>
+              </div>
+            </div>
+          </div></div>
         </div>
       </div>
       <div class="footer"></div>
