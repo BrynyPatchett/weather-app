@@ -101,7 +101,7 @@ h1 {
 
 .weathercard {
   background-color: white;
-  height: 400px;
+  height: 430px;
   width: 300px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.411);
@@ -174,7 +174,7 @@ h1 {
   padding-left: 10px;
   text-align: none;
   outline: 2px;
-  @media (max-width: 840px) {
+  @media  {
     width: 40%;
   }
 }
@@ -309,5 +309,15 @@ h1 {
   }
   100% {
     backdrop-filter: blur(0px);
+  }
+}
+
+.day{
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.527);
+  >p{
+    text-align: center;
+    margin: 0;
   }
 }
