@@ -231,7 +231,7 @@ h1 {
 .weathercard.rain::before {
   content: "";
   position: absolute;
-  background-image: url(./rain.png);
+  background-image: url(../images/rainanim.png);
   top: 0;
   left: 0;
   width: 150%;
@@ -260,7 +260,7 @@ h1 {
 .weathercard.storm::before {
   content: "";
   position: absolute;
-  background-image: url(./rain.png);
+  background-image: url(../images/rainanim.png);
   top: 0;
   left: 0;
   width: 150%;
