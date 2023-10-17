@@ -56,7 +56,7 @@ h1 {
   flex: 1;
 
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 
@@ -68,7 +68,7 @@ h1 {
 }
 
 .weathercards {
-  display: flex;
+  display: none;
   justify-content: center;
   width: 100%;
   gap: 10%;
@@ -102,11 +102,15 @@ h1 {
   }
 }
 
+
+
 .footer {
   font-size: 1.2rem;
   display: flex;
   width: 100%;
   background-color: #91b0df;
+  justify-content: center;
+  /* align-items: center; */
  
 }
 
@@ -122,6 +126,8 @@ h1 {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: center ;
+  align-items: center;
 }
 
 .weatherinfo {
@@ -188,6 +194,25 @@ h1 {
   @media {
     width: 40%;
   }
+}
+
+#searchbar {
+  border: 1px solid white;
+  border-radius: 20px 0 0 20px;
+  width: 30%;
+  font-size: 1rem;
+  height: 100%;
+  padding-left: 10px;
+  text-align: none;
+  outline: 2px;
+  @media {
+    width: 40%;
+  }
+}
+
+
+#searchbar.error {
+  background-color: rgba(252, 146, 146, 0.774);
 }
 
 #searchbar:placeholder-shown {
@@ -323,6 +348,7 @@ h1 {
 }
 
 .day {
+  width: 100%;
   display: flex;
   z-index: 1;
   justify-content: center;
@@ -331,4 +357,33 @@ h1 {
     text-align: center;
     margin: 0;
   }
+}
+
+
+.loader{
+  width: 75px;
+  height: 75px;
+}
+
+.spinner{
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.errormessage{
+    display: none;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 75px;
+    text-align: center;
+    border: 4px solid rgba(255, 255, 0, 0.733);
+    padding: 5px;
 }

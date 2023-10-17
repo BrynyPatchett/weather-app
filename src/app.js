@@ -1,30 +1,47 @@
 import dayWeather from "./js/dayweather";
 import weatherCard from "./js/weatherCard"
 import './styles/style.css';
+import  spinnerIcon from './images/loading.svg';
 
-console.log("Test");
 
 const search = document.querySelector("#searchbar");
 const searchButton = document.querySelector(".searchicon");
 const weatherCardsDisplay = document.querySelector(".weathercards");
-
+const weatherContent = document.querySelector(".weathercontent");
+const currentLocation = document.querySelector("#currentLocation");
+const errorMessage= document.querySelector(".errormessage");
+const regex = /^([A-Za-z](-?|,?\s?))+$/;
 const WEATHER_API_KEY = "2dc0747a20414ce69b1212419231010";
 
+ 
+search.oninput = validateSearch
+
 searchButton.addEventListener("click",  function (e) {
-  console.log(search.value);
+  let searchLocation = search.value;
   //do validation
-   getWeatherDayFromLocation(search.value);
-  console.log("HELLO AFTER TIMEOUT");
+    if(validateSearch(search.value)){
+      getWeatherDayFromLocation(search.value);
+    }
 });
 
 async function getWeatherDayFromLocation(location) {
-  await console.log("searhcing for location");
+ 
+  //handle loading anims
+  showLoading();
+
   try {
     let response = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?q=${location}&key=2dc0747a20414ce69b1212419231010&days=3`
     );
     let data = await response.json();
     let weatherDays = [];
+    console.log(data);
+    console.log(data.location.name);
+    console.log(data.location.country);
+     let displayLocation = `${data.location.name}, ${data.location.country}`;
+     currentLocation.textContent = displayLocation;
+
+
     data.forecast.forecastday.forEach((dayforecast) => {
       console.log(dayforecast);
 
@@ -59,7 +76,7 @@ async function getWeatherDayFromLocation(location) {
       );
     });
       console.log(weatherDays);
-
+      removeLoading();
       weatherDays.forEach(day=>{
         weatherCardsDisplay.appendChild(weatherCard(day));
       })
@@ -67,6 +84,61 @@ async function getWeatherDayFromLocation(location) {
 
      return weatherDays;
   } catch (e) {
-    alert(e);
+    removeLoading();
+    weatherContent.style.display = "none";
+    currentLocation.textContent = "Please Enter a Valid Location";
+    errorMessage.style.display = "block";
+    search.classList.add("error");
+  }
+}
+
+
+function showLoading(){
+  let loader = document.createElement('div');
+  loader.classList.add("loader");
+  let loadingIcon = document.createElement('img');
+  loadingIcon.classList.add("spinner");
+  loadingIcon.src = spinnerIcon;
+  loader.appendChild(loadingIcon);
+
+
+  if(weatherContent.style.display === "none" || weatherContent.style.display === ""){
+    weatherCardsDisplay.style.display = "flex";
+    weatherContent.style.display = "flex";
+    weatherCardsDisplay.appendChild(loader);
+  }else{
+    weatherContent.querySelectorAll(".weathercard").forEach(card =>{
+      //remove all animations from display cards
+      let cardAnimClass = card.classList[card.classList.length -1];
+      card.classList.remove(cardAnimClass);
+      //remove all children of cards
+      while(card.firstChild){
+        card.removeChild(card.firstChild)
+      }
+      card.appendChild(loader.cloneNode(true));
+    });
+
+  }
+
+}
+
+function removeLoading(){
+  document.querySelectorAll(".loader").forEach(l => l.remove());
+  //removes card displaying loading if there are any
+  weatherContent.querySelectorAll(".weathercard").forEach(card => card.remove());
+
+}
+
+function validateSearch(){
+  let term = search.value;
+  if (term.length === 0 || !regex.test(term)){
+    errorMessage.style.display = "block";
+    search.classList.add("error");
+    return false;
+
+  }else{
+    errorMessage.style.display = "none";
+    search.classList.remove("error");
+    return true;
   }
 }
