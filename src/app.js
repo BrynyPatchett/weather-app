@@ -44,7 +44,6 @@ searchButton.addEventListener("click",  async function (e) {
   //do validation
     if(validateSearch(search.value)){
       currentWeatherDays =  await getWeatherDayFromLocation(search.value);
-      console.log(currentWeatherDays);
     }
 });
 

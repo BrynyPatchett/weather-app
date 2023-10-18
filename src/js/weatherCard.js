@@ -2,6 +2,7 @@ import sun from "../images/sun.png";
 import rain from "../images/rain.png";
 import cloud from "../images/cloud.png";
 import storm from "../images/storm.png";
+import  "../styles/weathercard.css";
 
 export default function createWeatherCardElement(dayWeather,unit) {
   const daysOfWeek = [
@@ -21,9 +22,7 @@ export default function createWeatherCardElement(dayWeather,unit) {
     "storm":storm
   }
 
-//   const today = new Date().getDay();
   let cardDate = new Date(dayWeather.date).getDay();
-//   let displayDate = cardDate === today ? "Today" : daysOfWeek[cardDate];
 
   let weatherCard = document.createElement("div");
   weatherCard.classList.add("weathercard");
