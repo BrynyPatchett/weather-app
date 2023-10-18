@@ -3,7 +3,7 @@ import rain from "../images/rain.png";
 import cloud from "../images/cloud.png";
 import storm from "../images/storm.png";
 
-export default function createWeatherCardElement(dayWeather) {
+export default function createWeatherCardElement(dayWeather,unit) {
   const daysOfWeek = [
     "Sunday",
     "Monday",
@@ -53,11 +53,11 @@ export default function createWeatherCardElement(dayWeather) {
 
   let tempHigh = document.createElement("p");
   tempHigh.classList.add("temperatureHigh");
-  tempHigh.textContent = dayWeather.avgTemperature.c;
+  tempHigh.textContent = dayWeather.avgTemperature[unit] + " °" + unit;
 
   let tempLow = document.createElement("p");
   tempLow.classList.add("temperatureLow");
-  tempLow.textContent = dayWeather.minTemperature.c;
+  tempLow.textContent = dayWeather.minTemperature[unit] +  " °" + unit;
 
   tempDiv.appendChild(tempHigh);
   tempDiv.appendChild(tempLow);
@@ -116,20 +116,3 @@ export default function createWeatherCardElement(dayWeather) {
   return weatherCard;
 }
 
-//      <div class="weathercard sun">
-//     <div class="day"><p>Saturday</p></div>
-//     <div class="weatherinfo">
-//       <img src="./src/sun.png" alt="cloudy" />
-//       <div  class="temp">
-//         <p class="temperatureHigh">16c</p>
-//         <p class="temperatureLow">8c</p>
-//       </div>
-//       <div class="chanceWrapper">
-//         <div class="chanceinfo">
-//           <div class="chance"><p>Chance of Rain</p><p>82%</p></div>
-//           <div class="chance"><p>PRECIPITATION</p><p>11.4cm</p></div>
-//           <div class="chance"><p>Humidity</p><p>94%</p></div>
-//         </div>
-//       </div>
-//     </div>
-//   </div>

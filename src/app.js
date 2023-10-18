@@ -3,7 +3,7 @@ import weatherCard from "./js/weatherCard"
 import './styles/style.css';
 import  spinnerIcon from './images/loading.svg';
 
-
+let currentUnit = "C";
 const search = document.querySelector("#searchbar");
 const searchButton = document.querySelector(".searchicon");
 const weatherCardsDisplay = document.querySelector(".weathercards");
@@ -12,21 +12,44 @@ const currentLocation = document.querySelector("#currentLocation");
 const errorMessage= document.querySelector(".errormessage");
 const regex = /^([A-Za-z](-?|,?\s?))+$/;
 const WEATHER_API_KEY = "2dc0747a20414ce69b1212419231010";
+const unit= document.querySelector("#unit");
+let currentWeatherDays = [];
+
+unit.addEventListener("click",function(e){
+  e.stopPropagation();
+  if(unit.checked == true){
+    currentUnit = "F";
+  }else{
+    currentUnit = "C";
+  }
+  if(currentWeatherDays.length > 0){
+
+    let day = 0;
+    weatherContent.querySelectorAll(".weathercard").forEach((card) => {
+      card.querySelector(".temperatureHigh").textContent = currentWeatherDays[day].avgTemperature[currentUnit] + " °" + currentUnit;
+      card.querySelector(".temperatureLow").textContent = currentWeatherDays[day].minTemperature[currentUnit] + " °" + currentUnit;
+      day++;
+    });
+
+  }
+
+})
+
 
  
 search.oninput = validateSearch
 
-searchButton.addEventListener("click",  function (e) {
+searchButton.addEventListener("click",  async function (e) {
   let searchLocation = search.value;
   //do validation
     if(validateSearch(search.value)){
-      getWeatherDayFromLocation(search.value);
+      currentWeatherDays =  await getWeatherDayFromLocation(search.value);
+      console.log(currentWeatherDays);
     }
 });
 
 async function getWeatherDayFromLocation(location) {
  
-  //handle loading anims
   showLoading();
 
   try {
@@ -34,16 +57,10 @@ async function getWeatherDayFromLocation(location) {
       `https://api.weatherapi.com/v1/forecast.json?q=${location}&key=2dc0747a20414ce69b1212419231010&days=3`
     );
     let data = await response.json();
+    let displayLocation = `${data.location.name}, ${data.location.country}`;
+    currentLocation.textContent = displayLocation;
     let weatherDays = [];
-    console.log(data);
-    console.log(data.location.name);
-    console.log(data.location.country);
-     let displayLocation = `${data.location.name}, ${data.location.country}`;
-     currentLocation.textContent = displayLocation;
-
-
     data.forecast.forecastday.forEach((dayforecast) => {
-      console.log(dayforecast);
 
       //decide on conditions using returned code from https://www.weatherapi.com/docs/#weather-icons
       let code = dayforecast.day.condition.code;
@@ -60,14 +77,11 @@ async function getWeatherDayFromLocation(location) {
       else{
         condition = 'cloud';
       }
-      console.log(code);
-      console.log(dayforecast.day.condition.text);
-      console.log(condition);
       weatherDays.push(
         new dayWeather(
           dayforecast.date,
-          { c: Math.trunc(dayforecast.day.maxtemp_c), f: Math.trunc(dayforecast.day.maxtemp_f) },
-          { c: Math.trunc(dayforecast.day.mintemp_c), f: Math.trunc(dayforecast.day.mintemp_f) },
+          { C: Math.trunc(dayforecast.day.maxtemp_c), F: Math.trunc(dayforecast.day.maxtemp_f) },
+          { C: Math.trunc(dayforecast.day.mintemp_c), F: Math.trunc(dayforecast.day.mintemp_f) },
           condition,
           dayforecast.day.daily_chance_of_rain,
           dayforecast.day.totalprecip_mm,
@@ -75,10 +89,9 @@ async function getWeatherDayFromLocation(location) {
         )
       );
     });
-      console.log(weatherDays);
       removeLoading();
       weatherDays.forEach(day=>{
-        weatherCardsDisplay.appendChild(weatherCard(day));
+        weatherCardsDisplay.appendChild(weatherCard(day,currentUnit));
       })
 
 
